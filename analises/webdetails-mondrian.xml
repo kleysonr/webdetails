@@ -2,6 +2,39 @@
 	<Cube name="WDSales" cache="true" enabled="true">
 		<Table name="ORDERFACT">
 		</Table>
+		<Dimension foreignKey="CUSTOMERNUMBER" name="Markets">
+			<Hierarchy hasAll="true" allMemberName="All Markets" primaryKey="CUSTOMERNUMBER" primaryKeyTable="">
+				<Table name="CUSTOMER_W_TER">
+				</Table>
+        <Level name="Territory" column="TERRITORY" type="String" uniqueMembers="true" levelType="Regular"
+               hideMemberIf="Never">
+          <!--Property name="CHART_SERIES_COLOR" column="TERRITORY_COLOR" type="String">
+          </Property-->
+				</Level>
+        <Level name="Country" column="COUNTRY" levelType="Regular"
+               hideMemberIf="Never">
+          <Annotations>
+            <Annotation name="Data.Role">Geography</Annotation>
+            <Annotation name="Geo.Role">country</Annotation>
+          </Annotations>
+				</Level>
+        <Level name="State Province" column="STATE" type="String" levelType="Regular"
+               hideMemberIf="Never">
+          <Annotations>
+            <Annotation name="Data.Role">Geography</Annotation>
+            <Annotation name="Geo.Role">state</Annotation>
+            <Annotation name="Geo.RequiredParents">country</Annotation>
+          </Annotations>
+				</Level>
+        <Level name="City" column="CITY" type="String" levelType="Regular" hideMemberIf="Never">
+          <Annotations>
+            <Annotation name="Data.Role">Geography</Annotation>
+            <Annotation name="Geo.Role">city</Annotation>
+            <Annotation name="Geo.RequiredParents">country,state</Annotation>
+          </Annotations>
+				</Level>
+			</Hierarchy>
+		</Dimension>
 		<Dimension foreignKey="CUSTOMERNUMBER" name="Customers">
 			<Hierarchy hasAll="true" allMemberName="All Customers" primaryKey="CUSTOMERNUMBER">
 				<Table name="CUSTOMER_W_TER">
